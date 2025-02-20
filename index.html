@@ -8,18 +8,30 @@
 <body>
     <h1>Bienvenue dans le jeu de devinette !</h1>
     <p>Devinez un nombre entre 1 et 100.</p>
+    
     <input type="number" id="guess" placeholder="Entrez votre devinette">
     <button onclick="checkGuess()">Deviner</button>
+    
     <p id="result"></p>
+    <p id="attempts">Tentatives : 0</p>
 
     <script>
-        let randomNumber = Math.floor(Math.random() * 100) + 1;
+        let randomNumber = Math.floor(Math.random() * 100) + 1; // Nombre aléatoire entre 1 et 100
         let attempts = 0;
 
         function checkGuess() {
             const userGuess = document.getElementById('guess').value;
-            attempts++;
 
+            // Vérification que l'utilisateur a entré un nombre
+            if (!userGuess) {
+                document.getElementById('result').innerHTML = "Veuillez entrer un nombre.";
+                return;
+            }
+
+            attempts++;
+            document.getElementById('attempts').innerHTML = `Tentatives : ${attempts}`;
+
+            // Comparaison de la devinette avec le nombre secret
             if (userGuess < randomNumber) {
                 document.getElementById('result').innerHTML = "Trop bas ! Essayez encore.";
             } else if (userGuess > randomNumber) {
@@ -27,9 +39,11 @@
             } else {
                 document.getElementById('result').innerHTML = `Bravo ! Vous avez trouvé le nombre en ${attempts} essais.`;
             }
+
+            // Vider le champ de saisie après chaque tentative
+            document.getElementById('guess').value = "";
         }
     </script>
 </body>
 </html>
-
 
